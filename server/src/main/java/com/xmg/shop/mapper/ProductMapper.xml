@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xmg.shop.mapper.ProductMapper" >
+  <resultMap id="BaseResultMap" type="com.xmg.shop.domain.Product" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="last_modified_date" property="lastModifiedDate" jdbcType="TIMESTAMP" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+    <result column="catalog_id" property="catalogId" jdbcType="BIGINT" />
+    <result column="brand_id" property="brandId" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="keyword" property="keyword" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="image" property="image" jdbcType="VARCHAR" />
+    <result column="market_price" property="marketPrice" jdbcType="DECIMAL" />
+    <result column="base_price" property="basePrice" jdbcType="DECIMAL" />
+    <result column="mods" property="mods" jdbcType="BIGINT" />
+    <result column="impressions" property="impressions" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from product
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.xmg.shop.domain.Product" useGeneratedKeys="true" keyProperty="id" >
+    insert into product (created_date, last_modified_date, 
+      version, catalog_id, brand_id, 
+      name, keyword, code, 
+      image, market_price, base_price, 
+      mods, impressions)
+    values (#{createdDate,jdbcType=TIMESTAMP}, #{lastModifiedDate,jdbcType=TIMESTAMP}, 
+      #{version,jdbcType=INTEGER}, #{catalogId,jdbcType=BIGINT}, #{brandId,jdbcType=BIGINT}, 
+      #{name,jdbcType=VARCHAR}, #{keyword,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
+      #{image,jdbcType=VARCHAR}, #{marketPrice,jdbcType=DECIMAL}, #{basePrice,jdbcType=DECIMAL}, 
+      #{mods,jdbcType=BIGINT}, #{impressions,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.xmg.shop.domain.Product" >
+    update product
+    set created_date = #{createdDate,jdbcType=TIMESTAMP},
+      last_modified_date = #{lastModifiedDate,jdbcType=TIMESTAMP},
+      version = #{version,jdbcType=INTEGER},
+      catalog_id = #{catalogId,jdbcType=BIGINT},
+      brand_id = #{brandId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      keyword = #{keyword,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
+      image = #{image,jdbcType=VARCHAR},
+      market_price = #{marketPrice,jdbcType=DECIMAL},
+      base_price = #{basePrice,jdbcType=DECIMAL},
+      mods = #{mods,jdbcType=BIGINT},
+      impressions = #{impressions,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, created_date, last_modified_date, version, catalog_id, brand_id, name, 
+    keyword, code, image, market_price, base_price, mods, impressions
+    from product
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, created_date, last_modified_date, version, catalog_id, brand_id, name, 
+    keyword, code, image, market_price, base_price, mods, impressions
+    from product
+  </select>
+</mapper>
